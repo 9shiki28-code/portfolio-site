@@ -1,7 +1,7 @@
 
 export const SITE = {
   // 公開URLが確定したら変更
-  url: 'https://example.pages.dev',
+  url: 'https://portfolio-site-eil.pages.dev',
   title: '中村しょう子 | 建築ライター・二級建築士',
   description:
     '建築士としての専門知識と工務店での実務経験を生かし、住宅・建築分野を中心に企画・取材・執筆を手がける中村しょう子のポートフォリオとブログ。',
