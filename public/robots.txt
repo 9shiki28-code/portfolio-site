@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio-site-eil.pages.dev/sitemap-index.xml
+Sitemap: https://shoko-nakamura.com/sitemap-index.xml
