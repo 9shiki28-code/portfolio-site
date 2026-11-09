@@ -1,5 +1,6 @@
 ---
 title: キッチンリフォームの費用相場と、金額が変わる5つの要因
+slug: kitchen-reform-cost
 media: リフォーム情報サイト（Webメディア）
 type: SEO記事
 date: 2026-07-15

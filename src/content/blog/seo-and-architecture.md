@@ -1,5 +1,6 @@
 ---
 title: 住宅・リフォームのSEO記事で、専門性をどう出すか
+slug: seo-and-architecture
 description: 検索意図に沿うことと、建築の専門性を伝えることは両立できる。リフォーム記事を書くときに意識していること。
 pubDate: 2026-10-10
 tags: [SEO, リフォーム, 書くこと]

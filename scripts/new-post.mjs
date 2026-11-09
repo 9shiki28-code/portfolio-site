@@ -25,6 +25,7 @@ if (existsSync(file)) {
 
 const blogTemplate = `---
 title: タイトル
+slug: ${slug}
 description: 一覧や検索結果に表示される説明文（80〜120字程度）
 pubDate: ${today}
 tags: []
@@ -41,6 +42,7 @@ draft: true
 
 const workTemplate = `---
 title: 記事・仕事のタイトル
+slug: ${slug}
 media: 掲載媒体・クライアント名
 type: 取材記事
 date: ${today}

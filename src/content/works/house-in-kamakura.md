@@ -1,5 +1,6 @@
 ---
 title: 築60年の平屋を、三世代が集まる家に
+slug: house-in-kamakura
 media: 住宅誌『〇〇の住まい』2026年秋号
 type: 取材記事
 date: 2026-09-01

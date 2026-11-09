@@ -51,6 +51,18 @@ portfolio-site/
 
 ---
 
+## ブラウザで編集する（Pages CMS）
+
+[Pages CMS](https://app.pagescms.org/) にGitHubでログインし、`portfolio-site` を選ぶと、ブログ記事と実績をブラウザで追加・編集できます。
+保存すると GitHub に記録され、Cloudflare が自動で公開します（1〜2分）。編集画面の設定は `.pages.yml` にあります。
+
+- **URL名（slug）** は英小文字・数字・ハイフンで入力します。記事のURLとファイル名になるので、公開後は変えないでください
+- **新しいブログ記事は「下書き」がオンの状態で始まります**。書き終えたらオフにして保存すると公開されます
+- 画像はブログ用が `src/assets/blog/`、実績用が `src/assets/works/` に保存され、表示時に自動で軽量化されます
+- プロフィール（`src/pages/about.astro`）やサイト設定（`src/consts.js`）は CMS の対象外です。下の方法で編集します
+
+CMSで編集したあとにこのPCのファイルを編集するときは、先に `git pull` で最新の状態を取り込んでください。
+
 ## 日々の使い方
 
 PowerShellでこのフォルダを開いてから実行します。

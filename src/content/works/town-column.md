@@ -1,5 +1,6 @@
 ---
 title: 連載コラム「まちの小さな建築」
+slug: town-column
 media: 地域情報誌
 type: コラム
 date: 2025-12-01

@@ -1,0 +1,152 @@
+# Pages CMS の設定ファイル（https://pagescms.org/docs/）
+# pagescms.org に GitHub でログインすると、この設定に沿った編集画面が表示されます。
+
+media:
+  - name: blog
+    label: ブログ用画像
+    input: src/assets/blog
+    output: ../../assets/blog
+    extensions: [jpg, jpeg, png, webp, avif, gif]
+  - name: works
+    label: 実績用画像
+    input: src/assets/works
+    output: ../../assets/works
+    extensions: [jpg, jpeg, png, webp, avif, gif]
+
+content:
+  # ---------------- ブログ ----------------
+  - name: blog
+    label: ブログ記事
+    type: collection
+    path: src/content/blog
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, pubDate, draft]
+      primary: title
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: slug
+        label: URL名（英小文字・数字・ハイフン）
+        description: "記事のURLになります。例: kitchen-interview → /blog/kitchen-interview/ 。公開後は変えないでください。"
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9][a-z0-9-]*$"
+          message: 英小文字・数字・ハイフンだけで入力してください
+      - name: description
+        label: 説明文
+        description: 一覧や検索結果に表示されます（80〜120字程度）
+        type: text
+        required: true
+      - name: pubDate
+        label: 公開日
+        type: date
+        required: true
+      - name: updatedDate
+        label: 更新日（任意）
+        type: date
+      - name: tags
+        label: タグ
+        description: 1つずつ追加してください
+        type: string
+        list: true
+      - name: cover
+        label: アイキャッチ画像（任意）
+        type: image
+        options:
+          media: blog
+      - name: coverAlt
+        label: 画像の説明（任意）
+        type: string
+      - name: draft
+        label: 下書き（オンの間はサイトに公開されません）
+        type: boolean
+        default: true
+      - name: body
+        label: 本文
+        type: rich-text
+        options:
+          media: blog
+
+  # ---------------- 実績 ----------------
+  - name: works
+    label: 実績
+    type: collection
+    path: src/content/works
+    filename: "{fields.slug}.md"
+    view:
+      fields: [title, media, date, featured]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: slug
+        label: URL名（英小文字・数字・ハイフン）
+        description: "詳細ページのURLになります。例: house-in-hayama"
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9][a-z0-9-]*$"
+          message: 英小文字・数字・ハイフンだけで入力してください
+      - name: media
+        label: 掲載媒体・クライアント
+        type: string
+        required: true
+      - name: type
+        label: 種類
+        type: select
+        required: true
+        options:
+          values: [取材記事, 企業広報, SEO記事, コラム, 監修・編集, インタビュー]
+      - name: date
+        label: 掲載日
+        type: date
+        required: true
+      - name: summary
+        label: 概要
+        description: 一覧に表示されます（60〜100字程度）
+        type: text
+        required: true
+      - name: url
+        label: 掲載先URL（任意）
+        description: 本文が空のときは、一覧からこのURLへ直接リンクします
+        type: string
+      - name: tags
+        label: 分野タグ
+        type: string
+        list: true
+      - name: cover
+        label: サムネイル画像（任意）
+        type: image
+        options:
+          media: works
+      - name: coverAlt
+        label: 画像の説明（任意）
+        type: string
+      - name: featured
+        label: トップページに表示する
+        type: boolean
+        default: false
+      - name: draft
+        label: 下書き（オンの間はサイトに公開されません）
+        type: boolean
+        default: false
+      - name: body
+        label: 詳細ページの本文（任意）
+        description: 書くとサイト内に詳細ページができます。空なら掲載先URLへリンクします
+        type: rich-text
+        options:
+          media: works

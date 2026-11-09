@@ -1,5 +1,6 @@
 ---
 title: 「光の入り方から考える」設計者インタビュー
+slug: architect-interview
 media: 設計事務所オウンドメディア
 type: インタビュー
 date: 2026-05-20
