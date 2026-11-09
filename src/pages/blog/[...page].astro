@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostList from '../../components/PostList.astro';
 import { SITE } from '../../consts.js';
 import { getPosts, countTags, tagHref } from '../../lib/content';
+import pagesText from '../../data/pages.json';
 
 // /blog/ , /blog/2/ , /blog/3/ … と自動でページ分割されます
 export const getStaticPaths = (async ({ paginate }) => {
@@ -17,13 +18,13 @@ const { page, tags } = Astro.props;
 
 <BaseLayout
   title={page.currentPage > 1 ? `ブログ（${page.currentPage}ページ目）` : 'ブログ'}
-  description="建築・住宅・リノベーションについての取材こぼれ話、書くことの考え、仕事の記録。"
+  description={pagesText.blog.description}
 >
   <div class="container">
     <header class="page-head">
       <p class="eyebrow">Journal</p>
       <h1 class="page-title">ブログ</h1>
-      <p class="page-lead">取材のこぼれ話や、建築について書くことの考え、仕事の記録など。</p>
+      {pagesText.blog.lead && <p class="page-lead">{pagesText.blog.lead}</p>}
     </header>
 
     <div class="layout">

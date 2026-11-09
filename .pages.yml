@@ -12,6 +12,11 @@ media:
     input: src/assets/works
     output: ../../assets/works
     extensions: [jpg, jpeg, png, webp, avif, gif]
+  - name: profile
+    label: プロフィール用画像
+    input: src/assets/profile
+    output: /src/assets/profile
+    extensions: [jpg, jpeg, png, webp, avif]
 
 content:
   # ---------------- ブログ ----------------
@@ -150,3 +155,154 @@ content:
         type: rich-text
         options:
           media: works
+
+  # ---------------- サイトのページ ----------------
+  - name: home
+    label: トップページ
+    type: file
+    path: src/data/home.json
+    fields:
+      - name: eyebrow
+        label: キャッチコピー上の小見出し（英字）
+        type: string
+      - name: heroTitle
+        label: キャッチコピー
+        type: string
+        required: true
+      - name: heroLead
+        label: キャッチコピー下の紹介文
+        type: text
+      - name: primaryButton
+        label: ボタン1の文字（実績ページへ）
+        type: string
+      - name: secondaryButton
+        label: ボタン2の文字（お問い合わせへ）
+        type: string
+      - name: profileText
+        label: ページ下部「Profile」欄の紹介文
+        type: text
+
+  - name: about
+    label: プロフィール
+    type: file
+    path: src/data/about.json
+    fields:
+      - name: portrait
+        label: プロフィール写真
+        description: 縦長の写真がおすすめです。トップページの丸い写真にも使われます
+        type: image
+        options:
+          media: profile
+      - name: intro
+        label: 自己紹介文（段落ごと）
+        description: 1つの欄が1段落になります
+        type: text
+        list: true
+      - name: fields
+        label: 対応できる仕事
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: 見出し
+            type: string
+            required: true
+          - name: text
+            label: 説明
+            type: text
+      - name: career
+        label: 経歴
+        type: object
+        list: true
+        fields:
+          - name: year
+            label: 年・時期
+            type: string
+          - name: text
+            label: 内容
+            type: text
+      - name: qualifications
+        label: 資格・専門分野
+        type: string
+        list: true
+
+  - name: pages
+    label: ページの紹介文
+    type: file
+    path: src/data/pages.json
+    fields:
+      - name: works
+        label: 実績ページ
+        type: object
+        fields:
+          - name: lead
+            label: 紹介文
+            type: text
+          - name: description
+            label: 検索結果に表示される説明文
+            type: text
+      - name: blog
+        label: ブログ一覧ページ
+        type: object
+        fields:
+          - name: lead
+            label: 紹介文
+            type: text
+          - name: description
+            label: 検索結果に表示される説明文
+            type: text
+      - name: contact
+        label: お問い合わせページ
+        type: object
+        fields:
+          - name: lead
+            label: 紹介文
+            type: text
+          - name: description
+            label: 検索結果に表示される説明文
+            type: text
+
+  - name: site
+    label: 基本情報
+    type: file
+    path: src/data/site.json
+    fields:
+      - name: name
+        label: 名前
+        type: string
+        required: true
+      - name: nameEn
+        label: 名前（英字）
+        type: string
+      - name: role
+        label: 肩書き
+        type: string
+      - name: location
+        label: 所在地
+        type: string
+      - name: title
+        label: サイト名（ブラウザのタブや検索結果に表示）
+        type: string
+        required: true
+      - name: description
+        label: サイトの説明文（トップページの検索結果に表示）
+        type: text
+        required: true
+      - name: links
+        label: SNS・外部リンク
+        description: フッターとお問い合わせページに表示されます
+        type: object
+        list: true
+        fields:
+          - name: label
+            label: 表示名（例：note、X）
+            type: string
+            required: true
+          - name: href
+            label: URL
+            type: string
+            required: true
+      - name: contactTopics
+        label: お問い合わせフォームの「ご用件」の選択肢
+        type: string
+        list: true

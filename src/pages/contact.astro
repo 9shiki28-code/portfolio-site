@@ -1,19 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { AUTHOR, CONTACT } from '../consts.js';
+import pages from '../data/pages.json';
 
 const hasForm = CONTACT.formAction.trim().length > 0;
 const showEmail = !hasForm || CONTACT.showEmail;
+// 紹介文は src/data/pages.json（Pages CMS の「ページの紹介文」）で編集します
+const lead = hasForm ? pages.contact.lead : pages.contact.lead?.replace('下のフォーム', 'メール');
 ---
 
-<BaseLayout title="お問い合わせ" description="取材・執筆・編集のご依頼、ご相談はこちらから。">
+<BaseLayout title="お問い合わせ" description={pages.contact.description}>
   <div class="container container--narrow">
     <header class="page-head">
       <p class="eyebrow">Contact</p>
       <h1 class="page-title">お問い合わせ</h1>
-      <p class="page-lead">
-        取材・執筆・編集のご依頼、記事制作のご相談などは、{hasForm ? '下のフォーム' : 'メール'}からお気軽にご連絡ください。通常2営業日以内にお返事します。
-      </p>
+      {lead && <p class="page-lead">{lead}</p>}
     </header>
 
     {

@@ -1,47 +1,42 @@
+// サイト全体の設定
+//
+// 名前・肩書き・サイトの説明・SNSリンク・お問い合わせの選択肢は src/data/site.json にあり、
+// Pages CMS の「基本情報」から編集できます。
+// このファイルには、間違えるとサイトやフォームが動かなくなる設定だけを置いています。
+import site from './data/site.json' with { type: 'json' };
 
 export const SITE = {
   // 公開URL（独自ドメイン）
   url: 'https://shoko-nakamura.com',
-  title: '中村しょう子 | 建築ライター・二級建築士',
-  description:
-    '建築士としての専門知識と工務店での実務経験を生かし、住宅・建築分野を中心に企画・取材・執筆を手がける中村しょう子のポートフォリオとブログ。',
+  title: site.title,
+  description: site.description,
   lang: 'ja',
   postsPerPage: 10,
 };
 
 export const AUTHOR = {
-  name: '中村 しょう子',
-  nameEn: 'Shoko Nakamura',
-  role: '建築ライター / 二級建築士',
-  tagline:
-    '建築の専門知識と現場経験を、伝わる言葉に。',
+  name: site.name,
+  nameEn: site.nameEn,
+  role: site.role,
+  location: site.location,
+  // フォームを使っている間はサイトに表示されません（CONTACT.showEmail）
   email: '9shiki28@gmail.com',
-  location: '東京都',
-  links: [
-    // 実際のSNS・noteのURLが決まったら追加
-    // { label: 'note', href: 'https://note.com/...' },
-  ],
+  /** @type {{ label: string, href: string }[]} */
+  links: (site.links ?? []).filter((l) => l && l.label && l.href),
 };
 
 // お問い合わせフォーム（外部フォームサービス）
-// Formspree（https://formspree.io/）でフォームを作成し、発行された URL を formAction に貼ってください。
-// 例: 'https://formspree.io/f/abcdwxyz'
+// Formspree（https://formspree.io/）で発行された URL を formAction に設定します。
 // 空のままだとフォームの代わりにメールアドレスが表示されます。
 export const CONTACT = {
   formAction: 'https://formspree.io/f/xaeegeql',
   // フォームがあるときもメールアドレスを表示するか（迷惑メール対策のため false 推奨）
   showEmail: false,
-  // 問い合わせ種別の選択肢
-  topics: ['取材・執筆のご依頼', 'SEO記事・Webコンテンツのご依頼', '監修・編集のご依頼', 'その他のご相談'],
+  // 問い合わせ種別の選択肢（src/data/site.json の contactTopics）
+  topics: (site.contactTopics ?? []).filter(Boolean),
 };
 
-export const WORK_TYPES = [
-  '取材記事',
-  '企業広報',
-  'SEO記事',
-  'コラム',
-  '監修・編集',
-];
+export const WORK_TYPES = ['取材記事', '企業広報', 'SEO記事', 'コラム', '監修・編集', 'インタビュー'];
 
 export const NAV = [
   { label: 'Works', ja: '実績', href: '/works/' },
