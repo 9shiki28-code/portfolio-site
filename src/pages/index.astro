@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import PostList from '../components/PostList.astro';
+import { AUTHOR } from '../consts.js';
+import { getPosts, getWorks } from '../lib/content';
+
+const works = await getWorks();
+const featured = works.filter((w) => w.data.featured);
+const pickup = (featured.length > 0 ? featured : works).slice(0, 3);
+const posts = (await getPosts()).slice(0, 4);
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Architecture Writer</p>
+      <h1 class="hero-title">{AUTHOR.tagline}</h1>
+      <p class="hero-lead">
+        住宅・リノベーション・まちづくりを中心に、設計者や住まい手への取材記事、コラム、Webメディアの記事を執筆しています。
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="/works/">実績を見る</a>
+        <a class="btn btn--ghost" href="/contact/">お仕事のご相談</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Selected Works</p>
+          <h2 class="section-title">主な実績</h2>
+        </div>
+        <a class="more-link" href="/works/">すべての実績 →</a>
+      </div>
+      <WorkGrid works={pickup} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Journal</p>
+          <h2 class="section-title">最新のブログ</h2>
+        </div>
+        <a class="more-link" href="/blog/">記事一覧 →</a>
+      </div>
+      <PostList posts={posts} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-strip">
+      <div>
+        <p class="eyebrow">Profile</p>
+        <h2 class="section-title">{AUTHOR.name}</h2>
+        <p class="role">{AUTHOR.role}</p>
+      </div>
+      <div>
+        <p>
+          建築専門誌の編集部を経て独立。住宅、店舗、公共建築の取材や、設計事務所・工務店のWebコンテンツ制作、リフォーム関連のSEO記事などを手がけています。図面や専門用語を、暮らす人の言葉に置き換えて伝えることを大切にしています。
+        </p>
+        <a class="more-link" href="/about/">プロフィールを詳しく →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(72px, 14vw, 168px) clamp(56px, 10vw, 120px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 5.2vw, 3.4rem);
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+    margin: 0.4rem 0 0;
+    max-width: 16em;
+  }
+
+  .hero-lead {
+    color: var(--ink-soft);
+    max-width: 36em;
+    margin: 1.8rem 0 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 2.4rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.6rem;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .about-strip {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .about-strip p {
+    margin: 0 0 1.2rem;
+    color: var(--ink-soft);
+  }
+
+  .about-strip .role {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    margin-top: 0.4rem;
+  }
+
+  @media (max-width: 720px) {
+    .about-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

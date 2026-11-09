@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# 公開URLが決まったら example.pages.dev を書き換えてください
+Sitemap: https://example.pages.dev/sitemap-index.xml

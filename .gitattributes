@@ -1,0 +1,9 @@
+# 改行コードを LF に統一（Windows / Cloudflare のどちらでも同じ内容になるように）
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.avif binary

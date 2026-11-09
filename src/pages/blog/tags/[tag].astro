@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostList from '../../../components/PostList.astro';
+import { getPosts, countTags, tagHref } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = countTags(posts);
+  return tags.map(([tag]) => ({
+    params: { tag },
+    props: { tag, tags, posts: posts.filter((p) => p.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag, tags, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag} の記事`} description={`「${tag}」に関するブログ記事の一覧です。`}>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">Tag</p>
+      <h1 class="page-title">#{tag}</h1>
+      <p class="page-lead">{posts.length}件の記事</p>
+    </header>
+
+    <ul class="tags all-tags">
+      <li><a class="tag" href="/blog/">すべて</a></li>
+      {
+        tags.map(([t, n]) => (
+          <li>
+            <a class="tag" href={tagHref(t)} aria-current={t === tag ? 'page' : undefined}>
+              {t}<small>{n}</small>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <PostList posts={posts} />
+  </div>
+</BaseLayout>
+
+<style>
+  .all-tags {
+    margin-bottom: 2rem;
+  }
+</style>

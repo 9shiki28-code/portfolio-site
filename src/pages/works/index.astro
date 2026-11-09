@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkGrid from '../../components/WorkGrid.astro';
+import { getWorks } from '../../lib/content';
+
+const works = await getWorks();
+const types = [...new Set(works.map((w) => w.data.type))];
+---
+
+<BaseLayout title="実績" description="建築・住宅・リノベーション分野の取材記事、コラム、Web記事などの執筆実績です。">
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">Works</p>
+      <h1 class="page-title">実績</h1>
+      <p class="page-lead">取材記事、コラム、Webメディアの記事など、これまでに担当した仕事の一部です。</p>
+    </header>
+
+    <div class="filter" role="group" aria-label="種類で絞り込み">
+      <button type="button" class="tag" data-type="all" aria-pressed="true">すべて <small>{works.length}</small></button>
+      {
+        types.map((t) => (
+          <button type="button" class="tag" data-type={t} aria-pressed="false">
+            {t} <small>{works.filter((w) => w.data.type === t).length}</small>
+          </button>
+        ))
+      }
+    </div>
+
+    <div id="works">
+      <WorkGrid works={works} />
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  // 種類での絞り込み（JSが無効でも全件表示されます）
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter button');
+  const cards = document.querySelectorAll<HTMLLIElement>('#works li');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const type = btn.dataset.type;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cards.forEach((li) => {
+        const t = li.querySelector('.type')?.textContent;
+        li.hidden = type !== 'all' && t !== type;
+      });
+    });
+  });
+</script>
+
+<style>
+  .filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter button {
+    background: none;
+    font: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+  }
+
+  .filter button[aria-pressed='true'] {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+</style>

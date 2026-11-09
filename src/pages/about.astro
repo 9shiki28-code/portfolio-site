@@ -1,0 +1,202 @@
+
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { AUTHOR } from '../consts.js';
+
+const career = [
+  {
+    year: '大学院',
+    text: '建築系大学院 修士課程修了',
+  },
+  {
+    year: '会社員時代',
+    text: '工務店に約9年間勤務。設計・施工管理・積算・営業など、住宅づくりに関わる幅広い業務を経験',
+  },
+  {
+    year: '2021',
+    text: '地域メディアでの執筆活動を開始',
+  },
+  {
+    year: '2022',
+    text: 'Webライターとして本格的に活動を開始',
+  },
+  {
+    year: '2023',
+    text: '住宅・建築・リフォーム分野を中心に専門記事の制作を展開',
+  },
+  {
+    year: '現在',
+    text: 'SEO記事の企画・執筆に加え、企業取材、広報コンテンツ、専門記事の監修などを担当',
+  },
+];
+
+const fields = [
+  {
+    title: 'Web記事・SEOコンテンツ',
+    text: '住宅・建築・リフォーム・不動産分野を中心に、キーワード調査、構成作成、執筆、リライトまで対応。専門性と検索ニーズの両立を重視しています。',
+  },
+  {
+    title: '取材・インタビュー',
+    text: '企業担当者や現場で働く方へのインタビューをもとに、事業や取り組みの背景、仕事への思いを伝える記事を制作します。取材準備から執筆まで一貫して対応します。',
+  },
+  {
+    title: '企業広報・コンテンツ企画',
+    text: '企業のオウンドメディアや広報媒体に掲載する記事を制作。事業紹介、プロジェクトストーリー、施工事例など、目的や読者に合わせた企画・構成を提案します。',
+  },
+  {
+    title: '監修・編集・リライト',
+    text: '建築士としての知識と実務経験を生かし、住宅・建築関連コンテンツの専門的な確認、原稿の編集、リライトに対応します。',
+  },
+];
+---
+
+<BaseLayout
+  title="プロフィール"
+  description={`${AUTHOR.role}・${AUTHOR.name}のプロフィールと対応分野。`}
+>
+  <div class="container container--narrow">
+    <header class="page-head">
+      <p class="eyebrow">About</p>
+      <h1 class="page-title">{AUTHOR.name}</h1>
+      <p class="sub">
+        {AUTHOR.nameEn}　/　{AUTHOR.role}　/　{AUTHOR.location}
+      </p>
+    </header>
+
+    <div class="prose">
+      <p>
+        建築系大学院を修了後、工務店に約9年間勤務。
+        設計・施工管理・積算・営業など、住宅づくりのさまざまな業務に携わってきました。
+        現在は、その経験を生かして活動するフリーランスのWebライターです。
+      </p>
+      <p>
+        住宅・建築・リフォーム分野を中心に、これまで500本以上の記事を執筆。
+        SEO記事の企画・構成・執筆をはじめ、企業への取材、広報コンテンツの制作、
+        専門記事の監修などを手がけています。
+      </p>
+      <p>
+        大切にしているのは、専門的な情報を正確に、わかりやすく伝えること。
+        建築の知識と現場で培った経験を土台に、
+        読者の疑問に応えるとともに、企業やサービスの魅力が伝わるコンテンツを目指しています。
+      </p>
+    </div>
+
+    <section class="block">
+      <h2 class="section-title">対応できる仕事</h2>
+      <ul class="fields">
+        {fields.map((f) => (
+          <li>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 class="section-title">経歴</h2>
+      <ol class="career">
+        {career.map((c) => (
+          <li>
+            <span class="year">{c.year}</span>
+            <span>{c.text}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2 class="section-title">資格・専門分野</h2>
+      <ul class="plain">
+        <li>二級建築士</li>
+        <li>3級ファイナンシャル・プランニング技能士</li>
+        <li>建築系大学院 修士課程修了</li>
+        <li>専門分野：住宅・建築・リフォーム・不動産</li>
+      </ul>
+    </section>
+
+    <p class="cta">
+      <a class="more-link" href="/contact/">
+        お仕事のご相談はこちら →
+      </a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .sub {
+    margin: 0.8rem 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+
+  .block {
+    margin-top: 4rem;
+  }
+
+  .block .section-title {
+    font-size: 1.35rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .fields {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns:
+      repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 1rem;
+  }
+
+  .fields li {
+    border: 1px solid var(--line);
+    padding: 1.2rem 1.3rem;
+    background: var(--surface);
+  }
+
+  .fields h3 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+  }
+
+  .fields p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+
+  .career {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .career li {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+
+  .year {
+    font-family: var(--font-en);
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+
+  .plain {
+    padding-left: 1.2em;
+    margin: 0;
+  }
+
+  .cta {
+    margin-top: 4rem;
+  }
+</style>

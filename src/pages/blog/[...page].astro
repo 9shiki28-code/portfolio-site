@@ -1,0 +1,83 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import { SITE } from '../../consts.js';
+import { getPosts, countTags, tagHref } from '../../lib/content';
+
+// /blog/ , /blog/2/ , /blog/3/ … と自動でページ分割されます
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPosts();
+  const tags = countTags(posts);
+  return paginate(posts, { pageSize: SITE.postsPerPage, props: { tags } });
+}) satisfies GetStaticPaths;
+
+const { page, tags } = Astro.props;
+---
+
+<BaseLayout
+  title={page.currentPage > 1 ? `ブログ（${page.currentPage}ページ目）` : 'ブログ'}
+  description="建築・住宅・リノベーションについての取材こぼれ話、書くことの考え、仕事の記録。"
+>
+  <div class="container">
+    <header class="page-head">
+      <p class="eyebrow">Journal</p>
+      <h1 class="page-title">ブログ</h1>
+      <p class="page-lead">取材のこぼれ話や、建築について書くことの考え、仕事の記録など。</p>
+    </header>
+
+    <div class="layout">
+      <div>
+        <PostList posts={page.data} />
+        {
+          page.lastPage > 1 && (
+            <nav class="pager" aria-label="ページ送り">
+              <span>{page.url.prev && <a href={page.url.prev}>← 新しい記事</a>}</span>
+              <span>{page.currentPage} / {page.lastPage}</span>
+              <span>{page.url.next && <a href={page.url.next}>過去の記事 →</a>}</span>
+            </nav>
+          )
+        }
+      </div>
+      <aside>
+        <h2 class="side-title">タグ</h2>
+        <ul class="tags">
+          {tags.map(([t, n]) => <li><a class="tag" href={tagHref(t)}>{t}<small>{n}</small></a></li>)}
+        </ul>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  aside {
+    position: sticky;
+    top: 100px;
+  }
+
+  .side-title {
+    font-family: var(--font-en);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    aside {
+      position: static;
+      order: -1;
+    }
+  }
+</style>

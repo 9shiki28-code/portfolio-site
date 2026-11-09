@@ -1,0 +1,80 @@
+---
+import { AUTHOR, SITE } from '../consts.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container inner">
+    <div>
+      <p class="name">{AUTHOR.name}<span>{AUTHOR.nameEn}</span></p>
+      <p class="role">{AUTHOR.role}</p>
+    </div>
+    <ul class="links">
+      {AUTHOR.links.map((l) => <li><a href={l.href} rel="me noopener" target="_blank">{l.label}</a></li>)}
+      <li><a href="/rss.xml">RSS</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+  </div>
+  <p class="container copy">&copy; {year} {AUTHOR.nameEn}. {SITE.title}</p>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding-block: 48px 32px;
+    margin-top: 40px;
+    font-size: 0.88rem;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .name {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+  }
+
+  .name span {
+    font-family: var(--font-en);
+    color: var(--ink-faint);
+    margin-left: 0.8em;
+    letter-spacing: 0.05em;
+  }
+
+  .role {
+    color: var(--ink-faint);
+    font-size: 0.8rem;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-en);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .links a {
+    text-decoration: none;
+  }
+
+  .copy {
+    margin-top: 2rem;
+    color: var(--ink-faint);
+    font-size: 0.75rem;
+  }
+</style>

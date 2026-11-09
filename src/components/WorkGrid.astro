@@ -1,0 +1,127 @@
+---
+import { Image } from 'astro:assets';
+import type { Work } from '../lib/content';
+
+interface Props {
+  works: Work[];
+}
+
+const { works } = Astro.props;
+
+// 本文があれば詳細ページへ、なければ掲載先URLへ
+const linkOf = (w: Work) => (w.body && w.body.trim().length > 0 ? `/works/${w.id}/` : w.data.url);
+const isExternal = (w: Work) => !(w.body && w.body.trim().length > 0) && !!w.data.url;
+---
+
+<ul class="work-grid">
+  {
+    works.map((w) => {
+      const href = linkOf(w);
+      const Tag = href ? 'a' : 'div';
+      return (
+        <li>
+          <Tag
+            class="card"
+            href={href}
+            target={isExternal(w) ? '_blank' : undefined}
+            rel={isExternal(w) ? 'noopener' : undefined}
+          >
+            <div class="thumb">
+              {w.data.cover ? (
+                <Image src={w.data.cover} alt={w.data.coverAlt ?? ''} widths={[400, 800]} sizes="(max-width: 640px) 100vw, 360px" />
+              ) : (
+                <div class="ph"><span>{w.data.type}</span></div>
+              )}
+            </div>
+            <p class="meta">
+              <span class="type">{w.data.type}</span>
+              <span>{w.data.date.getFullYear()}</span>
+            </p>
+            <h3 class="title">
+              {w.data.title}
+              {isExternal(w) && <span class="ext" aria-label="外部サイト">↗</span>}
+            </h3>
+            <p class="media">{w.data.media}</p>
+            <p class="summary">{w.data.summary}</p>
+          </Tag>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .work-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: clamp(2rem, 4vw, 3rem) clamp(1.2rem, 3vw, 2.2rem);
+  }
+
+  .card {
+    display: block;
+    text-decoration: none;
+  }
+
+  .thumb {
+    overflow: hidden;
+  }
+
+  .thumb :global(img),
+  .thumb .ph {
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  a.card:hover .thumb :global(img),
+  a.card:hover .thumb .ph {
+    transform: scale(1.03);
+  }
+
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.9rem 0 0;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  .type {
+    color: var(--accent);
+  }
+
+  .title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.12rem;
+    line-height: 1.6;
+    margin: 0.3rem 0 0.2rem;
+  }
+
+  a.card:hover .title {
+    color: var(--accent);
+  }
+
+  .ext {
+    font-size: 0.8em;
+    margin-left: 0.3em;
+    color: var(--ink-faint);
+  }
+
+  .media {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+
+  .summary {
+    margin: 0.5rem 0 0;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+</style>
