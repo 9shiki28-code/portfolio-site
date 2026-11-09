@@ -10,6 +10,7 @@ tags:
   - 建築
   - リフォーム
   - SEO
+cover: ../../assets/works/3942512_m.jpg
 featured: true
 draft: false
 ---
