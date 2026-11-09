@@ -1,5 +1,5 @@
 ---
-title: 取材・インタビュー記事
+title: 取材・インタビュー記事制作
 slug: interview-articles
 media: 企業オウンドメディア・広報媒体など
 type: 取材記事
