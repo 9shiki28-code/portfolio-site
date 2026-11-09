@@ -2,8 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WorkGrid from '../components/WorkGrid.astro';
 import PostList from '../components/PostList.astro';
+import { Image } from 'astro:assets';
 import { AUTHOR } from '../consts.js';
 import { getPosts, getWorks } from '../lib/content';
+import portrait from '../assets/profile/portrait.jpg';
 
 const works = await getWorks();
 const featured = works.filter((w) => w.data.featured);
@@ -54,14 +56,23 @@ const posts = (await getPosts()).slice(0, 4);
 
   <section class="section">
     <div class="container about-strip">
-      <div>
-        <p class="eyebrow">Profile</p>
-        <h2 class="section-title">{AUTHOR.name}</h2>
-        <p class="role">{AUTHOR.role}</p>
+      <div class="who">
+        <Image
+          class="portrait"
+          src={portrait}
+          alt={`${AUTHOR.name}のプロフィール写真`}
+          widths={[160, 320, 480]}
+          sizes="160px"
+        />
+        <div>
+          <p class="eyebrow">Profile</p>
+          <h2 class="section-title">{AUTHOR.name}</h2>
+          <p class="role">{AUTHOR.role}</p>
+        </div>
       </div>
       <div>
         <p>
-          建築専門誌の編集部を経て独立。住宅、店舗、公共建築の取材や、設計事務所・工務店のWebコンテンツ制作、リフォーム関連のSEO記事などを手がけています。図面や専門用語を、暮らす人の言葉に置き換えて伝えることを大切にしています。
+          建築系大学院を修了後、工務店に約9年間勤務し、設計・施工管理・積算・営業など住宅づくりの幅広い業務を経験。現在はその経験を生かし、住宅・建築・リフォーム分野を中心にSEO記事の企画・執筆、企業取材、広報コンテンツの制作、専門記事の監修を手がけています。
         </p>
         <a class="more-link" href="/about/">プロフィールを詳しく →</a>
       </div>
@@ -130,6 +141,20 @@ const posts = (await getPosts()).slice(0, 4);
   .about-strip p {
     margin: 0 0 1.2rem;
     color: var(--ink-soft);
+  }
+
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .who .portrait {
+    width: 160px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 50% 22%;
+    border-radius: 50%;
   }
 
   .about-strip .role {

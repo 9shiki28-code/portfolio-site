@@ -1,7 +1,9 @@
 
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { AUTHOR } from '../consts.js';
+import portrait from '../assets/profile/portrait.jpg';
 
 const career = [
   {
@@ -53,14 +55,25 @@ const fields = [
 <BaseLayout
   title="プロフィール"
   description={`${AUTHOR.role}・${AUTHOR.name}のプロフィールと対応分野。`}
+  image={portrait.src}
 >
   <div class="container container--narrow">
-    <header class="page-head">
-      <p class="eyebrow">About</p>
-      <h1 class="page-title">{AUTHOR.name}</h1>
-      <p class="sub">
-        {AUTHOR.nameEn}　/　{AUTHOR.role}　/　{AUTHOR.location}
-      </p>
+    <header class="page-head profile-head">
+      <Image
+        class="portrait"
+        src={portrait}
+        alt={`${AUTHOR.name}のプロフィール写真`}
+        widths={[240, 480, 720]}
+        sizes="(max-width: 600px) 60vw, 240px"
+        loading="eager"
+      />
+      <div>
+        <p class="eyebrow">About</p>
+        <h1 class="page-title">{AUTHOR.name}</h1>
+        <p class="sub">
+          {AUTHOR.nameEn}　/　{AUTHOR.role}　/　{AUTHOR.location}
+        </p>
+      </div>
     </header>
 
     <div class="prose">
@@ -124,6 +137,31 @@ const fields = [
 </BaseLayout>
 
 <style>
+  .profile-head {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: clamp(1.5rem, 5vw, 3rem);
+    align-items: end;
+  }
+
+  .portrait {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: 50% 25%;
+  }
+
+  @media (max-width: 600px) {
+    .profile-head {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+    .portrait {
+      width: 60%;
+      max-width: 260px;
+    }
+  }
+
   .sub {
     margin: 0.8rem 0 0;
     font-size: 0.85rem;
