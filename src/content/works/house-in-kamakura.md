@@ -1,5 +1,5 @@
 ---
-title: 住宅・建築・リフォーム分野のSEO記事
+title: 住宅・建築・リフォーム分野のSEO記事制作
 slug: housing-seo-content
 media: 住宅・建築・リフォーム関連Webメディア
 type: SEO記事
