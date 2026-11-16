@@ -8,7 +8,7 @@ tags:
   - お知らせ
 cover: ../../assets/blog/25380110_m.jpg
 coverAlt: 二級建築士ライター 中村しょう子 ポートフォリオサイト開設
-draft: true
+draft: false
 ---
 はじめまして。二級建築士ライターの**中村しょう子**です。
 
